@@ -1,24 +1,30 @@
 import argparse
 import requests
 import re
+import os
 
 
-def arg_parse():
+def arg_parse(argv):
     parser = argparse.ArgumentParser(description='Generate diff')
+    parser.add_argument('url', type=str, help='')
     parser.add_argument(
         '-o',
         '--output',
         help='',
         type=str,
-        default='default'
     )
-    parser.add_argument('url', type=str, help='')
-    args = parser.parse_args()
-    return args.output, args.url
+    args = parser.parse_args(argv)
+    return args
 
 
-def run():
-    return 'Hello world'
+def page_loader(output, url):
+    file_name = give_a_name(url)
+    text = get_text_resp(url)
+    file_save(create_file_path(output, file_name), text)
+
+
+def create_file_path(path, file_name):
+    return os.path.join(path, file_name)
 
 
 def get_text_resp(url):
@@ -31,7 +37,7 @@ def file_save(file_path, data):
         output_file.write(data)
 
 
-def give_a_name(url):
+def give_a_name(url): # add orher urls cornet cases
     if 'http://' in url:
         url = url[7:]
     elif 'https://' in url:

@@ -23,9 +23,8 @@ def test_page_loader():
         assert os.path.exists(f'{tmp_dir}/hexlet-io-courses.html')
 
 
-# def test_text_resp():
-#     pass
-#
-#
-# def test_file_save():
-#     pass
+def test_page_loader2():
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        page_loader(tmp_dir, 'https://hexlet.io/courses')
+        assert os.path.exists(f'{tmp_dir}/hexlet-io-courses-files/')
+        assert os.path.exists(f'{tmp_dir}/hexlet-io-courses-files/cdn2-hexlet-io-assets-favicon-8fa102c058afb01de5016a155d7db433283dc7e08ddc3c4d1aef527c1b8502b6.ico"')

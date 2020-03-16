@@ -6,3 +6,5 @@
 ```
 pip install --index-url https://test.pypi.org/simple --extra-index-url https://pypi.org/simple alekorn-page-loader
 ```
+[![asciicast](https://asciinema.org/a/wBArTme0HQbBJUZvEwEwoqDaN.svg)](https://asciinema.org/a/wBArTme0HQbBJUZvEwEwoqDaN)
+

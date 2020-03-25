@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 import sys
-from page_loader.engine import get_text_resp, file_save, arg_parse, give_a_name, create_file_path
+import os
+from page_loader.engine import page_load, arg_parse
 
 
 def main():
     args = arg_parse(sys.argv[1:])
-    file_name = give_a_name(args.url)
-    text = get_text_resp(args.url)
-    file_save(create_file_path(args.output, file_name), text)
+    page_load(args.output, args.url)
+    #file_name = normalize_url(args.url)
+    #text = get_text_resp(args.url)
+    #file_save(os.path.join(args.output, file_name), text)
 
 
 if __name__ == '__main__':

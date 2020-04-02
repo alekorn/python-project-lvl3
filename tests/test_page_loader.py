@@ -1,25 +1,53 @@
-from page_loader.engine import normalize_url, arg_parse, page_load
+from page_loader.engine import normalize_url, arg_parse, page_load, soup_attr_find, TAGS_ATTRS
 import sys
 import tempfile
 import os
+from bs4 import BeautifulSoup
+
+URL1 = 'alekorn.github.io/alekorn-tests-page1.html'
+URL2 = 'alekorn.github.io/alekorn-tests-page1'
+NORM_FILES = 'alekorn-github-io-alekorn-tests-page1_files'
+NORM_URL1 = 'alekorn-github-io-alekorn-tests-page1.html'
+NORM_URL2 = 'alekorn-github-io-alekorn-tests-page1'
+NORM_FILE1 = 'css-main.css'
+NORM_FILE2 = 's3-us-west-2-amazonaws-com-s-cdpn-io-1425525-789p0uP.png'
+NORM_FILE3 = 'i-imgur-com-789p0uP.png'
+
+
+def txt_load(file):
+    with open(file, "r") as read_file:
+        data = read_file.read().rstrip()
+    return data
 
 
 def test_normalize_url():
-    assert normalize_url('https://hexlet.io/courses')  == 'hexlet-io-courses'
-    assert normalize_url('http://hexlet.io/courses')  == 'hexlet-io-courses'
-    assert normalize_url('hexlet.io/courses.html')  == 'hexlet-io-courses.html'
-    assert normalize_url('https://hexlet.io/A1234567890.html')  == 'hexlet-io-A1234567890.html'
+    assert normalize_url(f'http://{URL1}')  == NORM_URL1
+    assert normalize_url(URL2)  == NORM_URL2
+    assert normalize_url(f'https://{URL2}')  == NORM_URL2
+    assert normalize_url(f'http://{URL2}')  == NORM_URL2
 
 
 def test_arg_parse():
-    args = arg_parse(['-o=/tmp/test/', 'https://hexlet.io/courses'])
-    assert args.url == 'https://hexlet.io/courses'
+    args = arg_parse(['-o=/tmp/test/', f'https://{URL2}'])
+    assert args.url == f'https://{URL2}'
     assert args.output == '/tmp/test/'
 
 
 def test_page_load():
     with tempfile.TemporaryDirectory() as tmp_dir:
-        page_load(tmp_dir, 'https://ru.hexlet.io/courses')
-        assert os.path.exists(f'{tmp_dir}/ru-hexlet-io-courses.html')
-        assert os.path.exists(f'{tmp_dir}/ru-hexlet-io-courses_files/')
-        assert os.path.exists(f'{tmp_dir}/ru-hexlet-io-courses_files/ru-hexlet-io-lessons.rss')
+        page_load(tmp_dir, f'https://{URL2}')
+        assert os.path.exists(f'{tmp_dir}/{NORM_URL1}')
+        assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/')
+        assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE1}')
+        assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE2}')
+        assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE3}')
+        attr_list, _ = soup_attr_find(BeautifulSoup(txt_load(f'{tmp_dir}/{NORM_URL1}'), 'html.parser'), TAGS_ATTRS, '_')
+        assert attr_list == [
+                f'{NORM_FILES}/{NORM_FILE1}',
+                f'{NORM_FILES}/{NORM_FILE2}',
+                f'{NORM_FILES}/{NORM_FILE3}'
+                ]
+
+
+#def test_artr_change():
+#    soup = BeautifulSoup(txt_load('./fixtures/ru-hexlet-io-courses.html'), 'html.parser')

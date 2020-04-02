@@ -41,7 +41,8 @@ def test_page_load():
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE1}')
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE2}')
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE3}')
-        attr_list, _ = soup_attr_find(BeautifulSoup(txt_load(f'{tmp_dir}/{NORM_URL1}'), 'html.parser'), TAGS_ATTRS, '_')
+        soup = BeautifulSoup(txt_load(f'{tmp_dir}/{NORM_URL1}'), 'html.parser')
+        attr_list, _ = soup_attr_find(soup, TAGS_ATTRS, '_')
         assert attr_list == [
                 f'{NORM_FILES}/{NORM_FILE1}',
                 f'{NORM_FILES}/{NORM_FILE2}',

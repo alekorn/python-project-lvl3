@@ -1,4 +1,4 @@
-from page_loader.engine import normalize_url, arg_parse, page_load, soup_attr_find, TAGS_ATTRS
+from page_loader.engine import normalize_url, arg_parse, page_load, get_data, TAGS_ATTRS
 import sys
 import tempfile
 import os
@@ -31,6 +31,9 @@ def test_arg_parse():
     args = arg_parse(['-o=/tmp/test/', f'https://{URL2}'])
     assert args.url == f'https://{URL2}'
     assert args.output == '/tmp/test/'
+    assert args.log == 'warning'
+    args = arg_parse(['-o=/tmp/test/', f'https://{URL2}', '-l=error'])
+    assert args.log == 'error'
 
 
 def test_page_load():
@@ -41,14 +44,10 @@ def test_page_load():
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE1}')
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE2}')
         assert os.path.exists(f'{tmp_dir}/{NORM_FILES}/{NORM_FILE3}')
-        soup = BeautifulSoup(txt_load(f'{tmp_dir}/{NORM_URL1}'), 'html.parser')
-        attr_list, _ = soup_attr_find(soup, TAGS_ATTRS, '_')
+        text = txt_load(f'{tmp_dir}/{NORM_URL1}')
+        attr_list, _ = get_data(text, TAGS_ATTRS, '_')
         assert attr_list == [
                 f'{NORM_FILES}/{NORM_FILE1}',
                 f'{NORM_FILES}/{NORM_FILE2}',
                 f'{NORM_FILES}/{NORM_FILE3}'
                 ]
-
-
-#def test_artr_change():
-#    soup = BeautifulSoup(txt_load('./fixtures/ru-hexlet-io-courses.html'), 'html.parser')

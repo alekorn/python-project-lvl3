@@ -4,23 +4,28 @@ LOGGER_CONFIG = {
         'version': 1,
         # 'disable_existing_loggers': True,
         'formatters': {
-            'my_formatter': {
+            'file_formatter': {
                 'format': '{asctime} | {levelname} | {message}',
+                'style': '{'
+                },
+            'console_formatter': {
+                'format': '{levelname}: {message}',
                 'style': '{'
                 }
             },
         'handlers': {
             'console_handler': {
                 'class': 'logging.StreamHandler',
-                'level': 'ERROR',
-                'formatter': 'my_formatter'
+                # 'stream': 'sys.stderr',
+                'level': 'WARNING',
+                'formatter': 'console_formatter'
                 },
             'file_handler': {
                 'class': 'logging.FileHandler',
                 'filename': 'mylog.log',
                 'mode': 'w',
                 'level': 'DEBUG',
-                'formatter': 'my_formatter'
+                'formatter': 'file_formatter'
                 }
             },
         'loggers': {

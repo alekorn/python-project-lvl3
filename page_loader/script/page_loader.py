@@ -20,7 +20,7 @@ def main():
             # requests.exceptions.ConnectionError,
             # requests.exceptions.HTTPError
             ) as error:
-        LOGGER.error(f'TEST code: {error}') # TODO delete this is testing
+        LOGGER.error(f'TEST code: {error}')  # TODO delete this is testing
         sys.exit(1)
     else:
         LOGGER.info('downloading finished')

@@ -22,7 +22,7 @@ LOGGER_CONFIG = {
                 },
             'file_handler': {
                 'class': 'logging.FileHandler',
-                'filename': 'mylog.log',
+                'filename': 'mylog.log',  # TODO add page downloads path
                 'mode': 'w',
                 'level': 'DEBUG',
                 'formatter': 'file_formatter'

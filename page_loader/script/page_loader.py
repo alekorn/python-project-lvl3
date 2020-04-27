@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import sys
-from page_loader.engine import page_load, arg_parse
+from page_loader.engine import page_load, arg_parse, KnownError
 from page_loader.logger import LOGGER
-import requests
 
 
 def main():
@@ -11,16 +10,7 @@ def main():
     LOGGER.info('downloading started')
     try:
         page_load(args.output, args.url)
-    except (
-            OSError,
-            requests.exceptions.BaseHTTPError,
-            # FileExistsError,
-            # FileNotFoundError,
-            # PermissionError,
-            # requests.exceptions.ConnectionError,
-            # requests.exceptions.HTTPError
-            ) as error:
-        LOGGER.error(f'TEST code: {error}')  # TODO delete this is testing
+    except KnownError:
         sys.exit(1)
     else:
         LOGGER.info('downloading finished')

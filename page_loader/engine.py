@@ -9,6 +9,10 @@ from page_loader.logger import LOGGER
 TAGS_ATTRS = {'link': 'href', 'script': 'src', 'img': 'src'}
 
 
+class KnownError(Exception):
+    pass
+
+
 def arg_parse(argv):
     parser = argparse.ArgumentParser(description='Generate diff')
     parser.add_argument('url', type=str, help='')
@@ -18,13 +22,14 @@ def arg_parse(argv):
         help='',
         type=str,
         choices=['debug', 'info', 'warning', 'error', 'critical'],
-        default='warning'
+        default='info'
     )
     parser.add_argument(
         '-o',
         '--output',
         help='',
         type=str,
+        default='./'
     )
     args = parser.parse_args(argv)
     return args
@@ -59,12 +64,12 @@ def get_html(url):
         response = requests.get(url)
     except requests.RequestException as error:
         LOGGER.error(error)
-        raise OSError(1)
+        raise KnownError(error)
     try:
         response.raise_for_status()
     except requests.RequestException as error:
         LOGGER.error(error)
-        raise OSError(2)
+        raise KnownError(error)
     else:
         LOGGER.info(f"get html {url}")
         response = requests.get(url)
@@ -103,7 +108,7 @@ def save_page(file_path, data):
             output_file.write(data)
     except OSError as error:
         LOGGER.error(error)
-        raise OSError(3)
+        raise KnownError(error)  # TODO IOError???
     else:
         LOGGER.info(f"page saved {file_path}")
 
@@ -114,7 +119,7 @@ def save_file(file_path, data):
             output_file.write(data)
     except OSError as error:
         LOGGER.error(error)
-        raise OSError(4)
+        raise KnownError(error)
     else:
         LOGGER.info(f"file saved {file_path}")
 
@@ -124,7 +129,7 @@ def create_dir(dir_path):
         os.makedirs(dir_path)
     except OSError as error:
         LOGGER.error(error)
-        raise OSError(5)
+        raise KnownError(error)
     else:
         LOGGER.warning(f"directory created {dir_path}")
 
@@ -132,6 +137,6 @@ def create_dir(dir_path):
 def normalize_url(url):
     parsed_url = urlparse(url)
     if not parsed_url.scheme:
+        LOGGER.warning(f"{url} has no schema, url changed to http://{url}")
         url = f'http://{url}'
-        LOGGER.info(f"url has no schema, added http:// to url")
     return url

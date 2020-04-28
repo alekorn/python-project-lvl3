@@ -5,6 +5,7 @@ import os
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urljoin
 from page_loader.logger import LOGGER
+from progress.bar import IncrementalBar
 
 TAGS_ATTRS = {'link': 'href', 'script': 'src', 'img': 'src'}
 
@@ -89,17 +90,19 @@ def get_data(page_text, tag_attr_dict, dir_name):
 
 
 def save_content(content_list, dir_path, url):
-    for attr_text in content_list:
-        parse_attr = urlparse(attr_text)
-        if parse_attr.scheme:
-            data = requests.get(attr_text)
-        else:
-            LOGGER.debug(os.path.join(url, attr_text))  # DEBUG
-            LOGGER.debug(f'{url}')  # DEBUG
-            LOGGER.debug(f'{attr_text}')  # DEBUG
-            data = requests.get(urljoin(url, attr_text))  # TODO add test
-        file_path = os.path.join(dir_path, get_name(attr_text))
-        save_file(file_path, data.content)
+    with IncrementalBar('Processing', max=len(content_list)) as bar:
+        for attr_text in content_list:
+            parse_attr = urlparse(attr_text)
+            if parse_attr.scheme:
+                data = requests.get(attr_text)
+            else:
+                LOGGER.debug(os.path.join(url, attr_text))  # DEBUG
+                LOGGER.debug(f'{url}')  # DEBUG
+                LOGGER.debug(f'{attr_text}')  # DEBUG
+                data = requests.get(urljoin(url, attr_text))  # TODO add test
+            file_path = os.path.join(dir_path, get_name(attr_text))
+            save_file(file_path, data.content)
+            bar.next()
 
 
 def save_page(file_path, data):

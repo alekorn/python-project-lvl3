@@ -106,5 +106,5 @@ def test_exceptions4():
 
 def test_exceptions5():
     with tempfile.TemporaryDirectory() as tmp_dir:
-        with pytest.raises(KnownError, match='Errno 21'):
-            save_file('/', '')
+        with pytest.raises(KnownError, match='Errno 2'):
+            save_file('', '')

@@ -48,17 +48,17 @@ def test_arg_parse():
 def test_page_load():
     with tempfile.TemporaryDirectory() as tmp_dir:
         page_load(tmp_dir, URL2)
-        assert os.path.exists(f'{tmp_dir}/{PATH_URL1}')
-        assert os.path.exists(f'{tmp_dir}/{PATH_FILES}/')
-        assert os.path.exists(f'{tmp_dir}/{PATH_FILES}/{PATH_FILE1}')
-        assert os.path.exists(f'{tmp_dir}/{PATH_FILES}/{PATH_FILE2}')
-        assert os.path.exists(f'{tmp_dir}/{PATH_FILES}/{PATH_FILE3}')
-        text = txt_load(f'{tmp_dir}/{PATH_URL1}')
+        assert os.path.exists(os.path.join(tmp_dir, PATH_URL1))
+        assert os.path.exists(os.path.join(tmp_dir, PATH_FILES))
+        assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE1))
+        assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE2))
+        assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE3))
+        text = txt_load(os.path.join(tmp_dir, PATH_URL1))
         attr_list, _ = get_data(text, TAGS_ATTRS, '_')
         assert attr_list == [
-                f'{PATH_FILES}/{PATH_FILE1}',
-                f'{PATH_FILES}/{PATH_FILE2}',
-                f'{PATH_FILES}/{PATH_FILE3}'
+                os.path.join(PATH_FILES, PATH_FILE1),
+                os.path.join(PATH_FILES, PATH_FILE2),
+                os.path.join(PATH_FILES, PATH_FILE3)
                 ]
 
 

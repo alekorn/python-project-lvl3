@@ -3,8 +3,22 @@
 [![Build Status](https://travis-ci.com/alekorn/python-project-lvl3.svg?branch=master)](https://travis-ci.com/alekorn/python-project-lvl3)
 # page-loader
 
+## installing
 ```
 pip install --index-url https://test.pypi.org/simple --extra-index-url https://pypi.org/simple alekorn-page-loader
 ```
 [![asciicast](https://asciinema.org/a/yFP11tRGPWT7lMktnosklCygt.svg)](https://asciinema.org/a/yFP11tRGPWT7lMktnosklCygt)
+
+## usage
+```
+page-loader [URL] -o [PATH] -l [LOG LEVEL]
+
+LOG LEVEL:
+debug
+info
+warning
+eror
+critical
+```
+## exaples
 

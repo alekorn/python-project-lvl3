@@ -69,24 +69,24 @@ def test_exceptions1():
             page_load(tmp_dir, 'https://nonexistent-page.bla')
 
 
-# def test_exceptions2():
-#     with tempfile.TemporaryDirectory() as tmp_dir:
-#         with pytest.raises(KnownError, match='401'):
-#             page_load(tmp_dir, 'https://httpstat.us/401')
-#         with pytest.raises(KnownError, match='404'):
-#             page_load(tmp_dir, 'https://httpstat.us/404')
-#         with pytest.raises(KnownError, match='403'):
-#             page_load(tmp_dir, 'https://httpstat.us/403')
-#         with pytest.raises(KnownError, match='405'):
-#             page_load(tmp_dir, 'https://httpstat.us/405')
-#         with pytest.raises(KnownError, match='406'):
-#             page_load(tmp_dir, 'https://httpstat.us/406')
-#         with pytest.raises(KnownError, match='408'):
-#             page_load(tmp_dir, 'https://httpstat.us/408')
-#         with pytest.raises(KnownError, match='500'):
-#             page_load(tmp_dir, 'https://httpstat.us/500')
-#         with pytest.raises(KnownError, match='507'):
-#             page_load(tmp_dir, 'https://httpstat.us/507')
+def test_exceptions2():
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        with pytest.raises(KnownError, match='401'):
+            page_load(tmp_dir, 'https://httpstat.us/401')
+        with pytest.raises(KnownError, match='404'):
+            page_load(tmp_dir, 'https://httpstat.us/404')
+        with pytest.raises(KnownError, match='403'):
+            page_load(tmp_dir, 'https://httpstat.us/403')
+        with pytest.raises(KnownError, match='405'):
+            page_load(tmp_dir, 'https://httpstat.us/405')
+        with pytest.raises(KnownError, match='406'):
+            page_load(tmp_dir, 'https://httpstat.us/406')
+        with pytest.raises(KnownError, match='408'):
+            page_load(tmp_dir, 'https://httpstat.us/408')
+        with pytest.raises(KnownError, match='500'):
+            page_load(tmp_dir, 'https://httpstat.us/500')
+        with pytest.raises(KnownError, match='507'):
+            page_load(tmp_dir, 'https://httpstat.us/507')
 
 
 def test_exceptions3():

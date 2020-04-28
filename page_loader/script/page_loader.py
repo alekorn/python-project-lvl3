@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
-from page_loader.engine import page_load, arg_parse, KnownError
-from page_loader.logger import LOGGER
+from page_loader.engine import page_load, arg_parse
+from page_loader.logger import LOGGER, KnownError
 
 
 def main():

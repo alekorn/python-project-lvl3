@@ -1,4 +1,6 @@
-from page_loader.engine import get_name, arg_parse, page_load, get_data, TAGS_ATTRS, normalize_url, KnownError
+from page_loader.getters import get_name, get_data
+from page_loader.engine import page_load, arg_parse, TAGS_ATTRS, normalize_url
+from page_loader.logger import KnownError
 import sys
 import tempfile
 import os

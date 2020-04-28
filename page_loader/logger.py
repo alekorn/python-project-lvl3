@@ -1,5 +1,10 @@
 import logging.config
 
+
+class KnownError(Exception):
+    pass
+
+
 LOGGER_CONFIG = {
         'version': 1,
         'formatters': {
@@ -20,7 +25,7 @@ LOGGER_CONFIG = {
                 },
             'file_handler': {
                 'class': 'logging.FileHandler',
-                'filename': 'mylog.log',  # TODO add page downloads path
+                'filename': 'page-loader.log',
                 'mode': 'w',
                 'level': 'DEBUG',
                 'formatter': 'file_formatter'

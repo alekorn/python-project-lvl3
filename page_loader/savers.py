@@ -1,9 +1,11 @@
 import os
-from page_loader.logger import LOGGER, KnownError
-from progress.bar import IncrementalBar
-from urllib.parse import urlparse, urljoin
-from page_loader.getters import get_name
+from urllib.parse import urljoin, urlparse
+
 import requests
+from progress.bar import IncrementalBar
+
+from page_loader.getters import get_name
+from page_loader.logger import LOGGER, KnownError
 
 
 def save_page(file_path, data):

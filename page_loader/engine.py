@@ -1,9 +1,10 @@
-import os
 import argparse
+import os
 from urllib.parse import urlparse
+
+from page_loader.getters import get_data, get_html, get_name
 from page_loader.logger import LOGGER
-from page_loader.getters import get_name, get_html, get_data
-from page_loader.savers import save_content, save_page, create_dir
+from page_loader.savers import create_dir, save_content, save_page
 
 TAGS_ATTRS = {'link': 'href', 'script': 'src', 'img': 'src'}
 

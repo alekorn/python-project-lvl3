@@ -1,12 +1,14 @@
-from page_loader.getters import get_name, get_data
-from page_loader.engine import page_load, arg_parse, TAGS_ATTRS, normalize_url
-from page_loader.logger import KnownError
-from page_loader.savers import save_page, save_file, create_dir
+import os
 import sys
 import tempfile
-import os
-from bs4 import BeautifulSoup
+
 import pytest
+from bs4 import BeautifulSoup
+
+from page_loader.engine import TAGS_ATTRS, arg_parse, normalize_url, page_load
+from page_loader.getters import get_data, get_name
+from page_loader.logger import KnownError
+from page_loader.savers import create_dir, save_file, save_page
 
 URL1 = 'alekorn.github.io/alekorn-tests-page1.html'
 URL2 = 'alekorn.github.io/alekorn-tests-page1'

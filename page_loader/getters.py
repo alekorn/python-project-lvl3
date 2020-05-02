@@ -1,9 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
-from page_loader.logger import LOGGER, KnownError
-from urllib.parse import urlparse
 import os
 import re
+from urllib.parse import urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
+from page_loader.logger import LOGGER, KnownError
 
 
 def get_name(url):

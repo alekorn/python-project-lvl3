@@ -9,7 +9,7 @@ pip install --index-url https://test.pypi.org/simple --extra-index-url https://p
 ```
 ## usage
 ```
-page-loader [URL] -o [PATH] -l [LOG LEVEL]
+page-loader [-h] [-l {debug,info,warning,error,critical}] [-o OUTPUT] url
 
 LOG LEVEL: 
 debug

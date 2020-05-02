@@ -2,9 +2,9 @@ import argparse
 import os
 from urllib.parse import urlparse
 
-from page_loader.getters import get_data, get_html, get_name
+from page_loader.document import get_data, get_html, get_name
 from page_loader.logger import LOGGER
-from page_loader.savers import create_dir, save_content, save_page
+from page_loader.storage import create_dir, save_content, save_page
 
 
 def arg_parse():

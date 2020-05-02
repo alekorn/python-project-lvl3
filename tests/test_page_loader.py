@@ -5,7 +5,7 @@ import tempfile
 import pytest
 from bs4 import BeautifulSoup
 
-from page_loader.engine import TAGS_ATTRS, arg_parse, normalize_url, page_load
+from page_loader.engine import TAGS_ATTRS, normalize_url, page_load
 from page_loader.getters import get_data, get_name
 from page_loader.logger import KnownError
 from page_loader.savers import create_dir, save_file, save_page
@@ -37,15 +37,6 @@ def test_get_name():
     assert get_name(URL2)  == PATH_URL2
     assert get_name(f'https://{URL2}')  == PATH_URL2
     assert get_name(f'http://{URL2}')  == PATH_URL2
-
-
-def test_arg_parse():
-    args = arg_parse(['-o=/tmp/test/', f'https://{URL2}'])
-    assert args.url == f'https://{URL2}'
-    assert args.output == '/tmp/test/'
-    assert args.log == 'info'
-    args = arg_parse(['-o=/tmp/test/', f'https://{URL2}', '-l=error'])
-    assert args.log == 'error'
 
 
 def test_page_load():

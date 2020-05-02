@@ -5,7 +5,7 @@ import tempfile
 import pytest
 from bs4 import BeautifulSoup
 
-from page_loader.engine import TAGS_ATTRS, normalize_url, page_load
+from page_loader.engine import normalize_url, page_load
 from page_loader.getters import get_data, get_name
 from page_loader.logger import KnownError
 from page_loader.savers import create_dir, save_file, save_page
@@ -48,7 +48,7 @@ def test_page_load():
         assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE2))
         assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE3))
         text = txt_load(os.path.join(tmp_dir, PATH_URL1))
-        attr_list, _ = get_data(text, TAGS_ATTRS, '_')
+        attr_list, _ = get_data(text, '_')
         assert attr_list == [
                 os.path.join(PATH_FILES, PATH_FILE1),
                 os.path.join(PATH_FILES, PATH_FILE2),

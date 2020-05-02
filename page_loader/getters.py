@@ -35,10 +35,11 @@ def get_html(url):
         return response.text
 
 
-def get_data(page_text, tag_attr_dict, dir_name):
+def get_data(page_text, dir_name):
     soup = BeautifulSoup(page_text, 'html.parser')
+    tag_attrs = {'link': 'href', 'script': 'src', 'img': 'src'}
     content_list = []
-    for key, value in tag_attr_dict.items():
+    for key, value in tag_attrs.items():
         for link in soup.find_all(key):
             if value in link.attrs:
                 old_value = link[value]

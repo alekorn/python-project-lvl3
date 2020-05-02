@@ -6,7 +6,7 @@ from page_loader.logger import LOGGER, KnownError
 
 
 def main():
-    args = arg_parse(sys.argv[1:])
+    args = arg_parse()
     LOGGER.setLevel(args.log.upper())
     LOGGER.info('downloading started')
     try:

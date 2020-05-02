@@ -9,7 +9,7 @@ from page_loader.savers import create_dir, save_content, save_page
 TAGS_ATTRS = {'link': 'href', 'script': 'src', 'img': 'src'}
 
 
-def arg_parse(argv):
+def arg_parse():
     parser = argparse.ArgumentParser(description='Generate diff')
     parser.add_argument('url', type=str, help='')
     parser.add_argument(
@@ -27,7 +27,7 @@ def arg_parse(argv):
         type=str,
         default='./'
     )
-    args = parser.parse_args(argv)
+    args = parser.parse_args()
     return args
 
 

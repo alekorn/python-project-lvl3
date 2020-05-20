@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import argparse
 
 from page_loader.engine import page_load
 from page_loader.logger import LOGGER, KnownError

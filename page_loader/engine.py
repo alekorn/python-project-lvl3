@@ -1,32 +1,9 @@
-import argparse
 import os
 from urllib.parse import urlparse
 
 from page_loader.document import get_data, get_html, get_name
 from page_loader.logger import LOGGER
 from page_loader.storage import create_dir, save_content, save_page
-
-
-def arg_parse():
-    parser = argparse.ArgumentParser(description='Generate diff')
-    parser.add_argument('url', type=str, help='')
-    parser.add_argument(
-        '-l',
-        '--log',
-        help='',
-        type=str,
-        choices=['debug', 'info', 'warning', 'error', 'critical'],
-        default='info'
-    )
-    parser.add_argument(
-        '-o',
-        '--output',
-        help='',
-        type=str,
-        default='./'
-    )
-    args = parser.parse_args()
-    return args
 
 
 def page_load(output, url):

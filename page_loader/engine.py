@@ -1,7 +1,7 @@
 import os
 from urllib.parse import urlparse
 
-from page_loader.document import change_attrs, get_html, get_name
+from page_loader.document import change_attrs, download, get_name
 from page_loader.logger import LOGGER
 from page_loader.storage import create_dir, save_content, save_page
 
@@ -13,7 +13,7 @@ def page_load(output, url):
     dir_name = f'{name}_files'
     file_path = os.path.join(output, file_name)
     dir_path = os.path.join(output, dir_name)
-    page_text = get_html(url)
+    page_text = download(url)
     create_dir(dir_path)
     content_list, data = change_attrs(page_text, dir_name)
     save_page(file_path, data)

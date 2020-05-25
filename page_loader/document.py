@@ -18,17 +18,16 @@ def get_name(url):
     return normalized_path.strip('-') + ext
 
 
-def get_html(url):
+def download(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
+        return response.text
     except requests.RequestException as error:
         LOGGER.error(error)
         raise KnownError(error)
     else:
         LOGGER.info(f"get html {url}")
-        response = requests.get(url)
-        return response.text
 
 
 def change_attrs(page_text, dir_name):

@@ -22,7 +22,7 @@ def download(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
-        return response.text
+        return response.content
     except requests.RequestException as error:
         LOGGER.error(error)
         raise KnownError(error)

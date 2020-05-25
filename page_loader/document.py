@@ -35,7 +35,7 @@ def get_html(url):
         return response.text
 
 
-def get_data(page_text, dir_name):
+def change_attrs(page_text, dir_name):
     soup = BeautifulSoup(page_text, 'html.parser')
     tag_attrs = {'link': 'href', 'script': 'src', 'img': 'src'}
     content_list = []

@@ -1,8 +1,11 @@
 import os
-from urllib.parse import urlparse
 
-from page_loader.document import change_attrs, download, get_name
-from page_loader.logger import LOGGER
+from page_loader.document import (
+        change_attrs,
+        download,
+        get_name,
+        normalize_url
+        )
 from page_loader.storage import create_dir, save_content, save_page
 
 
@@ -18,11 +21,3 @@ def page_load(output, url):
     content_list, data = change_attrs(page_text, dir_name)
     save_page(file_path, data)
     save_content(content_list, dir_path, url)
-
-
-def normalize_url(url):
-    parsed_url = urlparse(url)
-    if not parsed_url.scheme:
-        LOGGER.warning(f"{url} has no schema, url changed to http://{url}")
-        url = f'http://{url}'
-    return url

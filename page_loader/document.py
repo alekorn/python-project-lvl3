@@ -47,3 +47,11 @@ def change_attrs(page_text, dir_name):
                         )
     LOGGER.info(f"data in the received HTML is changed")
     return content_list, str(soup)
+
+
+def normalize_url(url):
+    parsed_url = urlparse(url)
+    if not parsed_url.scheme:
+        LOGGER.warning(f"{url} has no schema, url changed to http://{url}")
+        url = f'http://{url}'
+    return url

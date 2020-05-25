@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import sys
+import logging
 import argparse
 
 from page_loader.engine import load_page
-from page_loader.logger import LOGGER, KnownError
+from page_loader.logger import KnownError
 
 
 def arg_parse():
@@ -29,15 +30,16 @@ def arg_parse():
 
 
 def main():
+    logger = logging.getLogger('my_logger')
     args = arg_parse()
-    LOGGER.setLevel(args.log.upper())
-    LOGGER.info('downloading started')
+    logger.setLevel(args.log.upper())
+    logger.info('downloading started')
     try:
         load_page(args.output, args.url)
     except KnownError:
         sys.exit(1)
     else:
-        LOGGER.info('downloading finished')
+        logger.info('downloading finished')
         sys.exit(0)
 
 

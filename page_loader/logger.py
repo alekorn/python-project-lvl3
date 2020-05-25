@@ -41,4 +41,3 @@ LOGGER_CONFIG = {
 
 
 logging.config.dictConfig(LOGGER_CONFIG)
-LOGGER = logging.getLogger('my_logger')

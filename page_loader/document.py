@@ -1,11 +1,12 @@
 import os
 import re
+import logging
 from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 
-from page_loader.logger import LOGGER, KnownError
+from page_loader.logger import KnownError
 
 
 def get_name(url):
@@ -19,18 +20,20 @@ def get_name(url):
 
 
 def download(url):
+    logger = logging.getLogger('my_logger')
     try:
         response = requests.get(url)
         response.raise_for_status()
         return response.content
     except requests.RequestException as error:
-        LOGGER.error(error)
+        logger.error(error)
         raise KnownError(error)
     else:
-        LOGGER.info(f"get html {url}")
+        logger.info(f"get html {url}")
 
 
 def change_attrs(page_text, dir_name):
+    logger = logging.getLogger('my_logger')
     soup = BeautifulSoup(page_text, 'html.parser')
     tag_attrs = {'link': 'href', 'script': 'src', 'img': 'src'}
     content_list = []
@@ -41,17 +44,18 @@ def change_attrs(page_text, dir_name):
                 content_list.append(link[value])
                 link[value] = os.path.join(dir_name, get_name(link[value]))
                 new_value = link[value]
-                LOGGER.debug(
+                logger.debug(
                         f"attribute {key}='{old_value}' "
                         f"changed to {key}='{new_value}'"
                         )
-    LOGGER.info(f"data in the received HTML is changed")
+    logger.info(f"data in the received HTML is changed")
     return content_list, str(soup)
 
 
 def normalize_url(url):
+    logger = logging.getLogger('my_logger')
     parsed_url = urlparse(url)
     if not parsed_url.scheme:
-        LOGGER.warning(f"{url} has no schema, url changed to http://{url}")
+        logger.warning(f"{url} has no schema, url changed to http://{url}")
         url = f'http://{url}'
     return url

@@ -4,7 +4,7 @@ import logging
 import argparse
 
 from page_loader.engine import load_page
-from page_loader.logger import KnownError
+from page_loader.logging import KnownError
 
 
 def arg_parse():
@@ -30,7 +30,7 @@ def arg_parse():
 
 
 def main():
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     args = arg_parse()
     logger.setLevel(args.log.upper())
     logger.info('downloading started')

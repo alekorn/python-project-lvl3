@@ -1,16 +1,15 @@
 import os
 import logging
-import requests
 from urllib.parse import urlparse
 
 from progress.bar import IncrementalBar
 
 from page_loader.document import get_name, download
-from page_loader.logger import KnownError
+from page_loader.logging import KnownError
 
 
 def save_page(file_path, data):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     try:
         with open(file_path, 'w') as output_file:
             output_file.write(data)
@@ -22,7 +21,7 @@ def save_page(file_path, data):
 
 
 def save_file(file_path, data):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     try:
         with open(file_path, 'wb') as output_file:
             output_file.write(data)
@@ -38,16 +37,16 @@ def save_content(content_list, dir_path, url):
         for attr_text in content_list:
             parse_attr = urlparse(attr_text)
             if parse_attr.scheme:
-                data = requests.get(attr_text).content
+                data = download(attr_text)
             else:
-                data = requests.get(url + '/' + attr_text).content
+                data = download(url + '/' + attr_text)
             file_path = os.path.join(dir_path, get_name(attr_text))
             save_file(file_path, data)
             bar.next()
 
 
 def create_dir(dir_path):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     try:
         os.makedirs(dir_path)
     except OSError as error:

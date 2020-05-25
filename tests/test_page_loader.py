@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from page_loader.engine import load_page
 from page_loader.document import change_attrs, get_name, normalize_url
-from page_loader.logger import KnownError
+from page_loader.logging import KnownError
 from page_loader.storage import create_dir, save_file, save_page
 
 URL1 = 'alekorn.github.io/alekorn-tests-page1.html'

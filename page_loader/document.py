@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from page_loader.logger import KnownError
+from page_loader.logging import KnownError
 
 
 def get_name(url):
@@ -20,7 +20,7 @@ def get_name(url):
 
 
 def download(url):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -33,7 +33,7 @@ def download(url):
 
 
 def change_attrs(page_text, dir_name):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     soup = BeautifulSoup(page_text, 'html.parser')
     tag_attrs = {'link': 'href', 'script': 'src', 'img': 'src'}
     content_list = []
@@ -53,7 +53,7 @@ def change_attrs(page_text, dir_name):
 
 
 def normalize_url(url):
-    logger = logging.getLogger('my_logger')
+    logger = logging.getLogger()
     parsed_url = urlparse(url)
     if not parsed_url.scheme:
         logger.warning(f"{url} has no schema, url changed to http://{url}")

@@ -32,7 +32,7 @@ LOGGER_CONFIG = {
                 }
             },
         'loggers': {
-            'my_logger': {
+            '': {
                 'level': 'DEBUG',
                 'handlers': ['file_handler', 'console_handler'],
                 }

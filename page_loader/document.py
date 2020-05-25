@@ -21,10 +21,6 @@ def get_name(url):
 def get_html(url):
     try:
         response = requests.get(url)
-    except requests.RequestException as error:
-        LOGGER.error(error)
-        raise KnownError(error)
-    try:
         response.raise_for_status()
     except requests.RequestException as error:
         LOGGER.error(error)

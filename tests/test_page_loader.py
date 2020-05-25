@@ -5,8 +5,8 @@ import tempfile
 import pytest
 from bs4 import BeautifulSoup
 
-from page_loader.engine import normalize_url, page_load
-from page_loader.document import change_attrs, get_name
+from page_loader.engine import load_page
+from page_loader.document import change_attrs, get_name, normalize_url
 from page_loader.logger import KnownError
 from page_loader.storage import create_dir, save_file, save_page
 
@@ -39,9 +39,9 @@ def test_get_name():
     assert get_name(f'http://{URL2}')  == PATH_URL2
 
 
-def test_page_load():
+def test_load_page():
     with tempfile.TemporaryDirectory() as tmp_dir:
-        page_load(tmp_dir, URL2)
+        load_page(tmp_dir, URL2)
         assert os.path.exists(os.path.join(tmp_dir, PATH_URL1))
         assert os.path.exists(os.path.join(tmp_dir, PATH_FILES))
         assert os.path.exists(os.path.join(tmp_dir, PATH_FILES, PATH_FILE1))
@@ -59,36 +59,36 @@ def test_page_load():
 def test_exceptions1():
     with tempfile.TemporaryDirectory() as tmp_dir:
         with pytest.raises(KnownError, match='Errno -2'):
-            page_load(tmp_dir, 'https://nonexistent-page.bla')
+            load_page(tmp_dir, 'https://nonexistent-page.bla')
 
 
 def test_exceptions2():
     with tempfile.TemporaryDirectory() as tmp_dir:
         with pytest.raises(KnownError, match='401'):
-            page_load(tmp_dir, 'https://httpstat.us/401')
+            load_page(tmp_dir, 'https://httpstat.us/401')
         with pytest.raises(KnownError, match='404'):
-            page_load(tmp_dir, 'https://httpstat.us/404')
+            load_page(tmp_dir, 'https://httpstat.us/404')
        #  with pytest.raises(KnownError, match='403'):  # TODO uncommet this
-       #      page_load(tmp_dir, 'https://httpstat.us/403')
+       #      load_page(tmp_dir, 'https://httpstat.us/403')
        #  with pytest.raises(KnownError, match='405'):
-       #      page_load(tmp_dir, 'https://httpstat.us/405')
+       #      load_page(tmp_dir, 'https://httpstat.us/405')
        #  with pytest.raises(KnownError, match='406'):
-       #      page_load(tmp_dir, 'https://httpstat.us/406')
+       #      load_page(tmp_dir, 'https://httpstat.us/406')
        #  with pytest.raises(KnownError, match='408'):
-       #      page_load(tmp_dir, 'https://httpstat.us/408')
+       #      load_page(tmp_dir, 'https://httpstat.us/408')
        #  with pytest.raises(KnownError, match='500'):
-       #      page_load(tmp_dir, 'https://httpstat.us/500')
+       #      load_page(tmp_dir, 'https://httpstat.us/500')
        #  with pytest.raises(KnownError, match='507'):
-       #      page_load(tmp_dir, 'https://httpstat.us/507')
+       #      load_page(tmp_dir, 'https://httpstat.us/507')
 
 
 def test_exceptions3():
     with tempfile.TemporaryDirectory() as tmp_dir:
         with pytest.raises(KnownError, match='Errno 13'):
-            page_load('/', 'http://google.com')
+            load_page('/', 'http://google.com')
         with pytest.raises(KnownError, match='Errno 17'):
             os.mkdir(f'{tmp_dir}/google-com_files')
-            page_load(tmp_dir, 'http://google.com/')
+            load_page(tmp_dir, 'http://google.com/')
 
 
 def test_exceptions4():

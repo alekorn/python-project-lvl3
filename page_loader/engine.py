@@ -9,7 +9,7 @@ from page_loader.document import (
 from page_loader.storage import create_dir, save_content, save_page
 
 
-def page_load(output, url):
+def load_page(output, url):
     url = normalize_url(url)
     name = get_name(url)
     file_name = f'{name}.html'

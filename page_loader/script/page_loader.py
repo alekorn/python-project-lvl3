@@ -2,7 +2,7 @@
 import sys
 import argparse
 
-from page_loader.engine import page_load
+from page_loader.engine import load_page
 from page_loader.logger import LOGGER, KnownError
 
 
@@ -33,7 +33,7 @@ def main():
     LOGGER.setLevel(args.log.upper())
     LOGGER.info('downloading started')
     try:
-        page_load(args.output, args.url)
+        load_page(args.output, args.url)
     except KnownError:
         sys.exit(1)
     else:

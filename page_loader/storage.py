@@ -1,10 +1,9 @@
 import os
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
-import requests
 from progress.bar import IncrementalBar
 
-from page_loader.document import get_name
+from page_loader.document import get_name, download
 from page_loader.logger import LOGGER, KnownError
 
 
@@ -35,11 +34,11 @@ def save_content(content_list, dir_path, url):
         for attr_text in content_list:
             parse_attr = urlparse(attr_text)
             if parse_attr.scheme:
-                data = requests.get(attr_text)
+                data = download(attr_text)
             else:
-                data = requests.get(urljoin(url, attr_text))
+                data = download(url + '/' + attr_text)
             file_path = os.path.join(dir_path, get_name(attr_text))
-            save_file(file_path, data.content)
+            save_file(file_path, data)
             bar.next()
 
 
